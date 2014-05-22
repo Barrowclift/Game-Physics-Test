@@ -58,7 +58,7 @@ def scaleShipForWindowSize():
 	height = height * windowManager.verticalScale
 	gapFromBottom = gapFromBottom * windowManager.verticalScale
 
-	gameDisplay.display.coords(CANVAS_ITEM, location.x, location.y, location.x+width, location.y+height)
+	gameDisplay.display.coords(CANVAS_ITEM, x, y, x+width, y+height)
 
 def resetShipForNewGame():
 	global location, velocity, acceleration, width, height, gapFromBottom
