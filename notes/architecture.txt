@@ -1,0 +1,24 @@
+class Physics:
+	velocity : Vector
+	location : Vector
+	acceleration : Vector
+
+	def scaleForWindowSize(...):
+
+class Element(object):
+	physics : Physics
+	width : int
+	height : int
+
+	def __init__(...)
+	|| more constructors
+	def scaleForWindowSize()
+		physics.scaleForWindowSize(...)
+	def executeAction(...)
+	def calculateNewLocationBasedOnAction(...)
+
+class Ship(Element):
+	[all comments]
+	[other specific variables]
+
+	[override everything]
