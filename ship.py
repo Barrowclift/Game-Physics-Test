@@ -1,15 +1,29 @@
 import gameDisplay
 import windowManager
 import vector
+from physics import Physics
+from element import Element
 from vector import Vector
 from globalVars import Actions
 
-STARTING_WIDTH = 20
-STARTING_HEIGHT = 20
-SHIP_COLOR = 'blue'
-SHIP_COLOR_TAG = 'light'
+class Ship(element):
 
-STARTING_GAP_FROM_BOTTOM = 40
+	beginningYPosition = 
+
+	def __init__(self, x, y, width, height, color):
+		self.physics = Physics(x, y)
+		self.width = width
+		self.height = height
+		self.color = color
+
+		STARTING_ABSOLUTE_CENTER = (windowManager.STARTING_WIDTH / 2) - (STARTING_WIDTH / 2)
+
+		self.canvasItem = gameDisplay.display.create_rectangle(self.physics.location.x,
+															   self.physics.location.y,
+															   self.physics.location.x+self.width,
+															   self.physics.location.y+self.height,
+															   fill=self.color)
+	
 STARTING_ABSOLUTE_CENTER = -1
 
 STARTING_X = -1
@@ -33,7 +47,7 @@ def setupShip():
 	global STARTING_ABSOLUTE_CENTER, STARTING_X ,STARTING_Y, CANVAS_ITEM
 	global location, width, height, gapFromBottom
 
-	STARTING_ABSOLUTE_CENTER = (windowManager.STARTING_WIDTH / 2) - (STARTING_WIDTH / 2)
+	
 	STARTING_X = STARTING_ABSOLUTE_CENTER
 	STARTING_Y = windowManager.STARTING_HEIGHT - STARTING_GAP_FROM_BOTTOM
 

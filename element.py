@@ -6,23 +6,12 @@ from physics import Physics
 class Element(object):
 	__metaclass__ = ABCMeta
 
-	DEFAULT_WIDTH = 10
-	DEFAULT_HEIGHT = 10
-	DEFAULT_COLOR = "Blue"
-
 	canvasItem = None
+	color = ""
 
 	physics = None
 	width = 0
 	height = 0
-
-	def __init__(self, x, y, width, height, color):
-		self.physics = Physics()
-		self.canvasItem = gameDisplay.display.create_rectangle(physics.location.x,
-															   physics.location.y,
-															   physics.location.x+self.width,
-															   physics.location.y+self.height,
-															   fill=self.DEFAULT_COLOR)
 
 	@abstractmethod
 	def scaleForWindowSize(self):
