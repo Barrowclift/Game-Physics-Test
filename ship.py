@@ -1,5 +1,4 @@
 import canvasManager
-import windowManager
 import vector
 from physics import Physics
 from element import Element
@@ -15,13 +14,15 @@ class Ship(Element):
 	halfShipWidth = width / 2
 	startGapFromBottom = 40
 
-	startX = windowManager.width - halfShipWidth
-	startY = windowManager.height - 40
+	startX = -1
+	startY = -1
 
 	canvasItem = None
 	physics = None
 
-	def __init__(self, color):
+	def __init__(self, color, x, y):
+		self.startX = x - self.halfShipWidth
+		self.startY = y - 40
 		self.physics = Physics(self.startX, self.startY)
 		self.color = color
 
@@ -33,11 +34,13 @@ class Ship(Element):
 															 self.physics.location.y,
 															 fill=self.color)
 
-	def scaleForWindowSize(self):
-		self.startGapFromBottom = self.startGapFromBottom * windowManager.verticalScale
-		self.halfShipWidth = self.halfShipWidth * windowManager.horizontalScale
-		super(Ship, self).scaleForWindowSize()
+	# Override
+	def scale(self, horizontalScale, verticalScale):
+		self.startGapFromBottom = self.startGapFromBottom * verticalScale
+		self.halfShipWidth = self.halfShipWidth * horizontalScale
+		super(Ship, self).scale(horizontalScale, verticalScale)
 
+	# Override
 	def drawElement(self):
 		canvasManager.canvas.coords(self.canvasItem,
 									 self.physics.location.x,

@@ -13,4 +13,4 @@ def setupCanvas():
 					 highlightthickness=0,
 					 background=windowManager.BACKGROUND_COLOR)
 	canvas.pack(fill="both", expand=1) # Resize with window
-	canvas.bind("<Configure>", windowManager.scaleWindowAndContents)
+	canvas.bind("<Configure>", windowManager.scaleWindowAndAllResources)

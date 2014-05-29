@@ -16,7 +16,7 @@ class Physics:
 		self.velocity = Vector(0, 0)
 		self.acceleration = Vector(0, 0)
 
-	def scaleForWindowSize(self, horizontalScale, verticalScale):
+	def scale(self, horizontalScale, verticalScale):
 		self.location.scale (horizontalScale, verticalScale)
 		self.velocity.scale (horizontalScale, verticalScale)
 		self.acceleration.scale (horizontalScale, verticalScale)

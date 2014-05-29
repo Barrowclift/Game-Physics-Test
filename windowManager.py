@@ -33,7 +33,7 @@ def init():
 	gameManager.setupGame()
 
 def setupWindow():
-	global window
+	global window, horizontalCenter, verticalCenter
 
 	window = Tk()
 	window.protocol("WM_DELETE_WINDOW", window.quit())
@@ -43,19 +43,24 @@ def setupWindow():
 				   MIN_HEIGHT)
 	window.configure(background=BACKGROUND_COLOR)
 
+	horizontalCenter = width / 2
+	verticalCenter = height / 2
+
 def run():
-	# Remember, mainloop() is a blocking call that freezes the flow of
-	# logic here until the user closes the window. This is why we have our
-	# game update logic in it's own thread.
-	# 
-	# Once this returns control back to us, that means the user closed the
-	# window and we should clean up anything that needs it.
+	"""
+	Remember, mainloop() is a blocking call that freezes the flow of logic
+	here until the user closes the window.
+
+	This is why we have our game update logic in it's own thread. Once this
+	returns control back to us, that means the user closed the window and we
+	should clean up anything that needs it.
+	"""
 	window.after(gameManager.GAME_SLEEP_TIME, gameManager.gameLoop)
 	window.mainloop()
 
 	cleanupForQuit()
 
-def scaleWindowAndContents(event):
+def scaleWindowAndAllResources(event):
 	global horizontalScale, verticalScale, horizontalCenter, verticalCenter, width, height
 	horizontalScale = event.width / width
 	verticalScale = event.height / height
@@ -64,7 +69,7 @@ def scaleWindowAndContents(event):
 	width = event.width
 	height = event.height
 	
-	gameManager.scaleAllResources()
+	gameManager.scaleAllResources(horizontalScale, verticalScale)
 
 def cleanupForQuit():
 	window.quit()

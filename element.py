@@ -1,4 +1,3 @@
-import windowManager
 from abc import ABCMeta
 from abc import abstractmethod
 from globalVars import Actions
@@ -21,12 +20,12 @@ class Element(object):
 		self.physics = Physics(self.startX, self.startY)
 		self.drawShip()
 
-	def scaleForWindowSize(self):
-		self.physics.scaleForWindowSize(windowManager.horizontalScale, windowManager.verticalScale)
-		self.width = self.width * windowManager.horizontalScale
-		self.height = self.height * windowManager.verticalScale
-		self.startX = self.startX * windowManager.horizontalScale
-		self.startY = self.startY * windowManager.verticalScale
+	def scale(self, horizontalScale, verticalScale):
+		self.physics.scale(horizontalScale, verticalScale)
+		self.width = self.width * horizontalScale
+		self.height = self.height * verticalScale
+		self.startX = self.startX * horizontalScale
+		self.startY = self.startY * verticalScale
 		self.drawElement()
 
 	def executeAction(self, requestedActions):
