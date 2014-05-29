@@ -1,3 +1,4 @@
+import windowManager
 from abc import ABCMeta
 from abc import abstractmethod
 from globalVars import Actions
@@ -6,30 +7,32 @@ from physics import Physics
 class Element(object):
 	__metaclass__ = ABCMeta
 
-	canvasItem = None
 	color = ""
-
-	physics = None
 	width = 0
 	height = 0
 
-	@abstractmethod
-	def scaleForWindowSize(self):
-		physics.scaleForWindowSize()
-		pass
+	startX = 0
+	startY = 0
 
-	@abstractmethod
-	def reset(self):
-		pass
+	canvasItem = None
+	physics = None
+
+	def resetElementForNewGame(self):
+		self.physics = Physics(self.startX, self.startY)
+		self.drawShip()
+
+	def scaleForWindowSize(self):
+		self.physics.scaleForWindowSize(windowManager.horizontalScale, windowManager.verticalScale)
+		self.width = self.width * windowManager.horizontalScale
+		self.height = self.height * windowManager.verticalScale
+		self.startX = self.startX * windowManager.horizontalScale
+		self.startY = self.startY * windowManager.verticalScale
+		self.drawElement()
 
 	def executeAction(self, requestedActions):
-		newLocationBasedOnActions = calculateNewLocationBasedOnActions(requestedActions)
-		self.physics.update(newLocationBasedOnActions)
-		gameDisplay.display.coords(self.canvasItem,
-								   self.physics.location.x,
-								   self.physics.location.y,
-								   self.physics.location.x+self.width,
-								   self.physics.location.y+self.height)
+		newLocationBasedOnActions = self.calculateNewLocationBasedOnActions(requestedActions)
+		self.physics.updateForNewLocation(newLocationBasedOnActions)
+		self.drawElement()
 
 	def calculateNewLocationBasedOnActions(self, requestedActions):
 		newLocationBasedOnActions = self.physics.location.getCopy()
@@ -43,3 +46,6 @@ class Element(object):
 			newLocationBasedOnActions.x += self.physics.maxSpeed
 
 		return newLocationBasedOnActions
+
+	def drawElement():
+		pass

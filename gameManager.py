@@ -1,6 +1,5 @@
 import globalVars
 import windowManager
-import ship
 from globalVars import Actions
 from enum import Enum
 
@@ -19,9 +18,13 @@ actionsForCurrentTick = {Actions.UP : False,
 
 						 Actions.SPACE: False,
 						 Actions.QUIT: False}
+ship = None
 
 def setupGame():
-	ship.setupShip()
+	from ship import Ship
+	global ship
+
+	ship = Ship("blue")
 
 def gameLoop():
 	if state == State.WAITING:
@@ -31,7 +34,7 @@ def gameLoop():
 	elif state == State.GAME_OVER:
 		gameOverStep()
 
-	windowManager.rootWindow.after(GAME_SLEEP_TIME, gameLoop)
+	windowManager.window.after(GAME_SLEEP_TIME, gameLoop)
 
 def waitingStep():
 	if actionsForCurrentTick[Actions.SPACE]:
@@ -72,4 +75,4 @@ def isPlayerDead():
 	# TODO check coordinates
 
 def scaleAllResources():
-	ship.scaleShipForWindowSize()
+	ship.scaleForWindowSize()

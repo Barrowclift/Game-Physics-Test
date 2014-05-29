@@ -1,73 +1,47 @@
-import globalVars
 import gameManager
-import gameDisplay
-from globalVars import Actions
+import inputManager
+import canvasManager
 from tkinter import * # TODO Only import what I need, this is greedy
 
+"""
+windowManager.py Developer Notes:
+
+	Contraining window aspect ratio support (as of Python 3.4.0):
+	- Windows 7...NO
+	- OS X........YES
+"""
+
 TITLE = "Trench Wars"
+BACKGROUND_COLOR = "black"
 MIN_WIDTH = 500
 MIN_HEIGHT = 500
 STARTING_WIDTH = 500
 STARTING_HEIGHT = 500
-BACKGROUND_COLOR = "black"
 
-KEYS = ["Up",
-		"Down",
-		"Left",
-		"Right",
-		
-		"space",
-		"Escape"]
-
-KEYS_TO_ACTIONS = {KEYS[0] : Actions.UP,
-				   KEYS[1] : Actions.DOWN,
-				   KEYS[2] : Actions.LEFT,
-				   KEYS[3] : Actions.RIGHT,
-
-				   KEYS[4] : Actions.SPACE,
-				   KEYS[5] : Actions.QUIT}
-
-rootWindow = None
+window = None
 width = STARTING_WIDTH
 height = STARTING_HEIGHT
-scale = 1
+horizontalCenter = -1
+verticalCenter = -1
+horizontalScale = 1
+verticalScale = 1
 
 def init():
 	setupWindow()
-	setupKeyBindings()
-	gameDisplay.setupDisplay()
+	inputManager.setupKeyBindings()
+	canvasManager.setupCanvas()
 	gameManager.setupGame()
 
 def setupWindow():
-	global rootWindow
+	global window
 
-	rootWindow = Tk()
-	rootWindow.protocol("WM_DELETE_WINDOW", rootWindow.quit())
-	rootWindow.wm_title(TITLE)
-	# Window aspect ratio support:
-	#   OS X..........YES
-	#   Windows	7.....NO
-	rootWindow.wm_aspect(1, 1, 1, 1)
-	rootWindow.minsize(MIN_WIDTH,
-					   MIN_HEIGHT)
-	rootWindow.configure(background=BACKGROUND_COLOR)
-	# rootWindow.resizable(0,0) # Not resizable
-
-def setupKeyBindings():
-	for key in KEYS:
-		rootWindow.bind("<KeyPress-%s>" % key, keyPress)
-		rootWindow.bind("<KeyRelease-%s>" % key, keyRelease)
-
-def keyPress(event):
-	eventAction = KEYS_TO_ACTIONS.get(event.keysym)
-	if eventAction == Actions.QUIT:
-		cleanupForQuit()
-		sys.exit(0)
-	gameManager.actionsForCurrentTick[eventAction] = True
-
-def keyRelease(event):
-	eventAction = KEYS_TO_ACTIONS.get(event.keysym)
-	gameManager.actionsForCurrentTick[eventAction] = False
+	window = Tk()
+	window.protocol("WM_DELETE_WINDOW", window.quit())
+	window.wm_title(TITLE)
+	window.wm_aspect(1, 1, 1, 1) # See developer note above
+	window.minsize(MIN_WIDTH,
+				   MIN_HEIGHT)
+	window.configure(background=BACKGROUND_COLOR)
 
 def run():
 	# Remember, mainloop() is a blocking call that freezes the flow of
@@ -76,20 +50,22 @@ def run():
 	# 
 	# Once this returns control back to us, that means the user closed the
 	# window and we should clean up anything that needs it.
-	rootWindow.after(gameManager.GAME_SLEEP_TIME, gameManager.gameLoop)
-	rootWindow.mainloop()
+	window.after(gameManager.GAME_SLEEP_TIME, gameManager.gameLoop)
+	window.mainloop()
 
 	cleanupForQuit()
 
-def updateScale(event):
-	global horizontalScale, verticalScale, width, height
+def scaleWindowAndContents(event):
+	global horizontalScale, verticalScale, horizontalCenter, verticalCenter, width, height
 	horizontalScale = event.width / width
 	verticalScale = event.height / height
+	horizontalCenter = width / 2
+	verticalCenter = height / 2
 	width = event.width
 	height = event.height
 	
 	gameManager.scaleAllResources()
 
 def cleanupForQuit():
-	rootWindow.quit()
+	window.quit()
 	# TODO Do I need to cleaup more? Make sure
