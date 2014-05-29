@@ -16,13 +16,18 @@ class Vector:
 		self.x = self.x - vector.x
 		self.y = self.y - vector.y
 
-	def multiply(self, n):
-		self.x = self.x * n
-		self.y = self.y * n
+	def multiply(self, vector):
+		self.x = self.x * vector.x
+		self.y = self.y * vector.y
 
-	def divide(self, n):
-		self.x = self.x / n
-		self.y = self.y / n
+	# Got to be a better, more Pythonic way to do this...
+	def divideByVector(self, vector):
+		self.x = self.x / vector.x
+		self.y = self.y / vector.y
+
+	def divideByValue(self, value=1):
+		self.x = self.x / value
+		self.y = self.y / value
 
 	def magnitude(self):
 		# Pythagorean Theorem c^2 = a^2 + b^2
@@ -31,20 +36,21 @@ class Vector:
 	def normalize(self):
 		magnitude = self.magnitude()
 		if magnitude > 0:
-			self.divide(magnitude)
+			self.divideByValue(value=magnitude)
 
-	def limit(self, maxAcceleration):
-		if (self.magnitude() > maxAcceleration):
+	def limit(self, maxAccelerationVector):
+		if (self.magnitude() > maxAccelerationVector.magnitude()):
 			self.normalize()
-			self.multiply(maxAcceleration)
+			self.multiply(maxAccelerationVector)
 
 	def stopIfSlowEnough(self):
 		if (self.magnitude() < 0.15):
-			self.multiply(0)
+			nothingVector = Vector(0, 0)
+			self.multiply(nothingVector)
 
-	def scale(self, horizontal, vertical):
-		self.x = self.x * horizontal
-		self.y = self.y * vertical
+	def scale(self, horizontalScale, verticalScale):
+		self.x = self.x * horizontalScale
+		self.y = self.y * verticalScale
 
 	def getCopy(self):
 		return Vector(self.x, self.y)

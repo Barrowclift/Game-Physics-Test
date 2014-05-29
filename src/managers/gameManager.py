@@ -50,7 +50,7 @@ def playingStep():
 	# TODO Update display (Needed???????)
 
 def gameOverStep():
-	print ("Game over")
+	print("Game over")
 	# TODO Do animation step
 	# TODO Reset everything on last animation step
 
@@ -69,7 +69,7 @@ def clearInputForNextTick():
 	actionsForCurrentTick[Actions.QUIT] = False
 
 def isPlayerDead():
-	print ("Checking player status...")
+	print("Checking player status...")
 	# TODO check coordinates
 
 def scaleAllResources(horizontalScale, verticalScale):

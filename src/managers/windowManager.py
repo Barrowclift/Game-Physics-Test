@@ -38,6 +38,14 @@ def setupWindow():
 	window = Tk()
 	window.protocol("WM_DELETE_WINDOW", window.quit())
 	window.wm_title(TITLE)
+	# "Sublime Text" fullscreen
+	# window.wm_attributes('-fullscreen', 1)
+
+	# Borderless window
+	# window.overrideredirect(True)
+
+	# Simply maxing out the window to fit the screen (without "Sublime Text" fullscreen). Respects aspect ratio.
+	# window.geometry("{0}x{1}+0+0".format(window.winfo_screenwidth(), window.winfo_screenheight()))
 	window.wm_aspect(1, 1, 1, 1) # See developer note above
 	window.minsize(MIN_WIDTH,
 				   MIN_HEIGHT)

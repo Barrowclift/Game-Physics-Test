@@ -36,13 +36,13 @@ class Element(object):
 	def calculateNewLocationBasedOnActions(self, requestedActions):
 		newLocationBasedOnActions = self.physics.location.getCopy()
 		if requestedActions[Actions.UP]:
-			newLocationBasedOnActions.y -= self.physics.maxSpeed
+			newLocationBasedOnActions.y -= self.physics.maxSpeed.y
 		if requestedActions[Actions.DOWN]:
-			newLocationBasedOnActions.y += self.physics.maxSpeed
+			newLocationBasedOnActions.y += self.physics.maxSpeed.y
 		if requestedActions[Actions.LEFT]:
-			newLocationBasedOnActions.x -= self.physics.maxSpeed
+			newLocationBasedOnActions.x -= self.physics.maxSpeed.x
 		if requestedActions[Actions.RIGHT]:
-			newLocationBasedOnActions.x += self.physics.maxSpeed
+			newLocationBasedOnActions.x += self.physics.maxSpeed.x
 
 		return newLocationBasedOnActions
 

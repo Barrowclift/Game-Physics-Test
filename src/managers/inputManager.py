@@ -1,6 +1,7 @@
 from globalVars import Actions
 import windowManager
 import gameManager
+import sys
 
 KEYS = ["Up",
 		"Down",
