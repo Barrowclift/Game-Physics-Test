@@ -11,7 +11,7 @@ windowManager.py Developer Notes:
 	- OS X........YES
 """
 
-TITLE = "Trench Wars"
+TITLE = "Physics Test"
 BACKGROUND_COLOR = "black"
 MIN_WIDTH = 500
 MIN_HEIGHT = 500
