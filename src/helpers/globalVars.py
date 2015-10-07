@@ -8,3 +8,13 @@ class Actions(Enum):
 
 	SPACE = 4
 	QUIT = 5
+
+FULL_HEALTH = 100
+
+PLAYER_BULLET_ACTION = {Actions.UP : True,
+						Actions.DOWN : False,
+						Actions.LEFT: False,
+						Actions.RIGHT: False,
+
+						Actions.SPACE: False,
+						Actions.QUIT: False}

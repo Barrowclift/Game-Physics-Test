@@ -22,12 +22,15 @@ class Vector:
 
 	# Got to be a better, more Pythonic way to do this...
 	def divideByVector(self, vector):
-		self.x = self.x / vector.x
-		self.y = self.y / vector.y
+		if (vector.x != 0):
+			self.x = self.x / vector.x
+		if (vector.y != 0):
+			self.y = self.y / vector.y
 
 	def divideByValue(self, value=1):
-		self.x = self.x / value
-		self.y = self.y / value
+		if (value != 0):
+			self.x = self.x / value
+			self.y = self.y / value
 
 	def magnitude(self):
 		# Pythagorean Theorem c^2 = a^2 + b^2
@@ -47,6 +50,10 @@ class Vector:
 		if (self.magnitude() < 0.15):
 			nothingVector = Vector(0, 0)
 			self.multiply(nothingVector)
+
+	def scaleWithRespectTo(self, original, horizontalScale, verticalScale):
+		self.x = original.x * horizontalScale
+		self.y = original.y * verticalScale
 
 	def scale(self, horizontalScale, verticalScale):
 		self.x = self.x * horizontalScale

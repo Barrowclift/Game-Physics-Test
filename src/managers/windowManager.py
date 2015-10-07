@@ -70,8 +70,8 @@ def run():
 
 def scaleWindowAndAllResources(event):
 	global horizontalScale, verticalScale, horizontalCenter, verticalCenter, width, height
-	horizontalScale = event.width / width
-	verticalScale = event.height / height
+	horizontalScale = event.width / STARTING_WIDTH
+	verticalScale = event.height / STARTING_HEIGHT
 	horizontalCenter = width / 2
 	verticalCenter = height / 2
 	width = event.width

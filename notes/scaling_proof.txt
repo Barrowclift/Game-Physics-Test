@@ -1,0 +1,24 @@
+alright:
+	window starts off at 500px height
+	resize to 650px
+	horizontalscale = 650 / 500
+	so bullet that was 10px becomes 10 * 1.3
+	bullet height is now 13px
+
+	user then shrinks the window to 300px height
+	horizontalscale = 300 / 650
+	so bullet that was 13px becomes 13 * 0.46
+	bullet height is now 6px
+
+TIME TO CHECK THE MATH
+
+	window starts off at 500px height
+	resize to 300px
+	horizontalscale = 300 / 500
+	so bullet that was 10px becomes 10 * 0.6
+	bullet height is now 6px
+
+EVERYTHING SEEMS TO CHECK OUT
+
+
+BUT, that’s not what I’m doing! Everything’s growing EXPONENTIALLY!!! NO!!!!

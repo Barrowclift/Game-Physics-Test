@@ -1,0 +1,8 @@
+TODO:
+
+Lots of stuff. So you have bullets "working", great.
+
+* Have the bullet speed match that of the ship. If I have momentum built up, so should the bullet
+* Refactor and refine the project again, this time for the bullets. This isn’t good in it's current state
+* Perhaps find a better way to manage timers?
+* Abstract the “original” and current values with some sort of struct or class, right now it’s messy as HELL and error prone.

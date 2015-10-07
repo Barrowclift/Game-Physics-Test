@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 __author__ = "Marc Barrowclift"
 __copyright__ = "Copyright 2014, Marc Barrowclift"

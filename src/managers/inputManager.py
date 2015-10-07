@@ -29,8 +29,8 @@ def keyPress(event):
 	if eventAction == Actions.QUIT:
 		windowManager.cleanupForQuit()
 		sys.exit(0)
-	gameManager.actionsForCurrentTick[eventAction] = True
+	gameManager.playerActionsForCurrentTick[eventAction] = True
 
 def keyRelease(event):
 	eventAction = KEYS_TO_ACTIONS.get(event.keysym)
-	gameManager.actionsForCurrentTick[eventAction] = False
+	gameManager.playerActionsForCurrentTick[eventAction] = False

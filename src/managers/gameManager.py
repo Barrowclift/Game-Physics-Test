@@ -1,9 +1,12 @@
 import windowManager
+import globalVars
 from ship import Ship
 from globalVars import Actions
 from enum import Enum
 
 GAME_SLEEP_TIME = 17 # 1000 milliseconds / 60 frames per second
+BULLET_WAIT_TIME = 10
+curBulletWaitTime = 0
 
 class State(Enum):
 	WAITING = 0
@@ -11,18 +14,20 @@ class State(Enum):
 	GAME_OVER = 2
 
 state = State.WAITING
-actionsForCurrentTick = {Actions.UP : False,
-						 Actions.DOWN : False,
-						 Actions.LEFT: False,
-						 Actions.RIGHT: False,
+playerActionsForCurrentTick = {Actions.UP : False,
+							   Actions.DOWN : False,
+							   Actions.LEFT: False,
+							   Actions.RIGHT: False,
 
-						 Actions.SPACE: False,
-						 Actions.QUIT: False}
+							   Actions.SPACE: False,
+							   Actions.QUIT: False}
 ship = None
+bullets = []
 
 def setupGame():
 	global ship
-	ship = Ship("blue", windowManager.horizontalCenter, windowManager.height)
+	ship = Ship(windowManager.horizontalCenter, windowManager.height)
+	bullets = []
 
 def gameLoop():
 	if state == State.WAITING:
@@ -35,7 +40,7 @@ def gameLoop():
 	windowManager.window.after(GAME_SLEEP_TIME, gameLoop)
 
 def waitingStep():
-	if actionsForCurrentTick[Actions.SPACE]:
+	if playerActionsForCurrentTick[Actions.SPACE]:
 		global state
 		state = State.PLAYING
 
@@ -45,9 +50,12 @@ def playingStep():
 	# 	state = State.GAME_OVER
 	# 	return
 
-	ship.executeAction(actionsForCurrentTick)
+	ship.executeAction(playerActionsForCurrentTick)
+	for bullet in bullets:
+		bullet.executeAction(bullet.bulletPath)
+		if (itemOffScreen(bullet)):
+			bullets.remove(bullet)
 	# TODO Update wall data
-	# TODO Update display (Needed???????)
 
 def gameOverStep():
 	print("Game over")
@@ -55,18 +63,18 @@ def gameOverStep():
 	# TODO Reset everything on last animation step
 
 def resetVariablesForNewGame():
-	global actionsForCurrentTick
+	global playerActionsForCurrentTick
 	clearInputForNextTick()
 	# TODO add them all
 
 def clearInputForNextTick():
-	global actionsForCurrentTick
-	actionsForCurrentTick[Actions.UP] = False
-	actionsForCurrentTick[Actions.DOWN] = False
-	actionsForCurrentTick[Actions.LEFT] = False
-	actionsForCurrentTick[Actions.RIGHT] = False
-	actionsForCurrentTick[Actions.SPACE] = False
-	actionsForCurrentTick[Actions.QUIT] = False
+	global playerActionsForCurrentTick
+	playerActionsForCurrentTick[Actions.UP] = False
+	playerActionsForCurrentTick[Actions.DOWN] = False
+	playerActionsForCurrentTick[Actions.LEFT] = False
+	playerActionsForCurrentTick[Actions.RIGHT] = False
+	playerActionsForCurrentTick[Actions.SPACE] = False
+	playerActionsForCurrentTick[Actions.QUIT] = False
 
 def isPlayerDead():
 	print("Checking player status...")
@@ -74,3 +82,8 @@ def isPlayerDead():
 
 def scaleAllResources(horizontalScale, verticalScale):
 	ship.scale(horizontalScale, verticalScale)
+	for bullet in bullets:
+		bullet.scale(horizontalScale, verticalScale)
+
+def itemOffScreen(item):
+	return item.offScreen()

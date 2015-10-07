@@ -7,10 +7,14 @@ class Element(object):
 	__metaclass__ = ABCMeta
 
 	color = ""
+	ORIGINAL_WIDTH = 0
 	width = 0
+	ORIGINAL_HEIGHT = 0
 	height = 0
 
+	ORIGINAL_X = 0
 	startX = 0
+	ORIGINAL_Y = 0
 	startY = 0
 
 	canvasItem = None
@@ -22,10 +26,10 @@ class Element(object):
 
 	def scale(self, horizontalScale, verticalScale):
 		self.physics.scale(horizontalScale, verticalScale)
-		self.width = self.width * horizontalScale
-		self.height = self.height * verticalScale
-		self.startX = self.startX * horizontalScale
-		self.startY = self.startY * verticalScale
+		self.width = self.ORIGINAL_WIDTH * horizontalScale
+		self.height = self.ORIGINAL_HEIGHT * verticalScale
+		self.startX = self.ORIGINAL_X * horizontalScale
+		self.startY = self.ORIGINAL_Y * verticalScale
 		self.drawElement()
 
 	def executeAction(self, requestedActions):
@@ -46,5 +50,5 @@ class Element(object):
 
 		return newLocationBasedOnActions
 
-	def drawElement():
+	def drawElement(self):
 		pass
